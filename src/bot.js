@@ -11,7 +11,7 @@ bot.onEvent = function (session, message) {
       icoList(session)
       break
     case 'Message':
-      icoList(session)
+      request(session)
       break
     case 'Command':
       onCommand(session, message)
@@ -23,16 +23,33 @@ bot.onEvent = function (session, message) {
 }
 
 
-function onCommand(session, command) {
-  switch (command.content.value) {
-    case 'ico':
-      showICO(session,command.content.label)
-      break
-  }
+function request(session) {
+
+  var url = "http://chaingear.cyber.fund/chaingear.json";
+  var result;
+  fetch(url).then(function (r) {
+    return r.json();
+  }).then(function (data) {
+    result = data;
+  })
+  session.reply(SOFA.Message({
+    body: "result " + result.length,
+    controls: [{
+      type: 'button',
+      label: 'back',
+      value: 'welcome'
+    }]
+  }))
 }
 
-function welcome(session) {
-  sendFirstMessage(session, `Hello! I know about all ICO's!`)
+function onCommand(session, command) {
+
+  if (command.content.value.match(/ico=/)) {
+    var token = command.content.value.substr(4);
+    showICO(session, token);
+  } else if (command.content.value == welcome) {
+    icoList(session)
+  }
 }
 
 
@@ -40,32 +57,32 @@ function icoList(session) {
   let controls = [{
       type: 'button',
       label: 'Token#1',
-      value: 'ico'
+      value: 'ico=Token#1'
     },
     {
       type: 'button',
       label: 'Token#2',
-      value: 'ico'
+      value: 'ico=Token#2'
     },
     {
       type: 'button',
       label: 'Token#3',
-      value: 'ico'
+      value: 'ico=Token#3'
     },
     {
       type: 'button',
       label: 'Token#4',
-      value: 'ico'
+      value: 'ico=Token#4'
     },
     {
       type: 'button',
       label: 'Token#5',
-      value: 'ico'
+      value: 'ico=Token#5'
     },
     {
       type: 'button',
       label: 'Token#6',
-      value: 'ico'
+      value: 'ico=Token#6'
     },
     {
       type: 'button',
@@ -80,10 +97,10 @@ function icoList(session) {
   }))
 }
 
-function showICO(session,label) {
+function showICO(session, token) {
   session.reply(SOFA.Message({
-    body: "information about" + label,
-    controls : [{
+    body: "information about " + token,
+    controls: [{
         type: 'button',
         label: 'back',
         value: 'welcome'
