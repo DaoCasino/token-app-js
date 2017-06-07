@@ -25,6 +25,7 @@ bot.onEvent = function (session, message) {
 
 
 function request(session) {
+  console.log("VERSION: 0.1")
   console.log("REQUEST")
   req('http://chaingear.cyber.fund/chaingear.json').then((body) => {
     let res = JSON.parse(body);
@@ -44,12 +45,15 @@ function onCommand(session, command) {
     var token = command.content.value.substr(4);
     showICO(session, token);
   } else if (command.content.value == 'welcome') {
-    icoList(session)
+    icoList(session,0)
   } else if (command.content.value.match(/link=/)) {
     var linkNum = command.content.value.substr(5);
     link(session, linkNum)
   } else if (command.content.value == 'more') {
     more(session)
+  }else if (command.content.value == 'back'){
+    var t = session.get("currentToken")
+    showICO(session, t);
   }
 }
 
@@ -91,17 +95,17 @@ function more(session) {
 }
 
 function showICO(session, token) {
-  console.log("TOKEN:", token)
+
   var list = session.get('erc20');
-  console.log("system_1:", list[token].system)
+
   var current = list[token];
-  console.log("current:", current)
-  session.set("currentToken", current);
+
+  session.set("currentToken", token);
   var links = new Array();
   var button = new Array();
-  console.log("_______1_______")
-  for (var i = 0; i < current.links.length || i < 7; i++) {
-    console.log("num i: " + i)
+
+  for (var i = 0; i < current.links.length && i < 7; i++) {
+
     links.push({
       type: 'button',
       label: current.links[i].type,
@@ -115,7 +119,7 @@ function showICO(session, token) {
   }, {
     type: 'button',
     label: "back",
-    value: "welcome"
+    value: "back"
   })
   console.log("system_2:", list[token].system)
   session.reply(SOFA.Message({
@@ -126,8 +130,8 @@ function showICO(session, token) {
 
 function link(session, num) {
   var list = session.get('erc20');
-  var current = session.get("currentToken");
-
+  var t = session.get("currentToken");
+  var current = list[t]
 
   session.reply(SOFA.Message({
     body: current.links[num].type + ": " + current.links[num].url,
