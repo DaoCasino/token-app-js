@@ -26,12 +26,8 @@ bot.onEvent = function (session, message) {
 
 function request(session) {
   console.log("REQUEST")
-  var url = "http://chaingear.cyber.fund/chaingear.json";
-  fetch(url).then(function (r) {
-    console.log("R:",r)
-    return r.json();
-  }).then(function (data) {
-    console.log("data:",data)
+  req('http://chaingear.cyber.fund/chaingear.json').then((body)=>{
+    console.log("BODY:",body.length)
   })
   session.reply(SOFA.Message({
     body: "result",
