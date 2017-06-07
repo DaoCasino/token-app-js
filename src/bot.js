@@ -73,7 +73,7 @@ function welcome(session) {
 }
 
 function pong(session) {
-  sendMessage(session, `Pong`)
+  sendMessage(session, `Pong azaza`)
 }
 
 // example of how to store state on each user
