@@ -29,8 +29,9 @@ function request(session) {
   req('http://chaingear.cyber.fund/chaingear.json').then((body) => {
     let res = JSON.parse(body);
     var erc20 = res.filter(function (item) {
-      return item.consensus.consensus_type == "ERC20 Token";
-      
+      if(item.consensus != undefined){
+      return item.consensus.consensus_type == "ERC20 Token" || item.consensus.type == "ERC20 Token";
+      }
     });
     console.log(erc20.length)
     session.set('erc20', erc20)
