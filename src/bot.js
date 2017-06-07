@@ -48,7 +48,7 @@ function onCommand(session, command) {
   } else if (command.content.value.match(/link=/)) {
     var linkNum = command.content.value.substr(5);
     link(session, linkNum)
-  }else if (command.content.value == 'more'){
+  } else if (command.content.value == 'more') {
     more(session)
   }
 }
@@ -77,13 +77,13 @@ function icoList(session, lastNum) {
     controls: controls,
     showKeyboard: false,
   }))
-  session.set("lastNum", lastNum+6)
+  session.set("lastNum", lastNum + 6)
 }
 
-function more(session){
+function more(session) {
   var last = session.get("lastNum");
   var list = session.get('erc20');
-  if (last > list.length){
+  if (last > list.length) {
     last = 0;
   }
   icoList(session, last)
@@ -107,12 +107,11 @@ function showICO(session, token) {
       value: 'link=' + i
     })
   }
-button.push({
-      type: "group",
-      label: "links",
-      controls: links
-    },
-    {
+  button.push({
+    type: "group",
+    label: "links",
+    controls: links
+  }, {
     type: 'button',
     label: "back",
     value: "welcome"
@@ -120,7 +119,7 @@ button.push({
   console.log("system_2:", list[token].system)
   session.reply(SOFA.Message({
     body: "information about " + list[token].system + ": " + list[token].descriptions.headline,
-    controls: controls,
+    controls: button,
   }))
 }
 
@@ -130,11 +129,11 @@ function link(session, num) {
 
 
   session.reply(SOFA.Message({
-      body: current.links[num].type + ": " + current.links[num].url,
-      controls: [{
-          type: 'button',
-          label: "back",
-          value: 'ico='+current
-        }],
+    body: current.links[num].type + ": " + current.links[num].url,
+    controls: [{
+      type: 'button',
+      label: "back",
+      value: 'ico=' + current
+    }],
   }))
 }
