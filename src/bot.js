@@ -92,8 +92,8 @@ function more(session){
 
 function showICO(session, token) {
   console.log("TOKEN:", token)
-  console.log("system_1:", list[token].system)
   var list = session.get('erc20');
+  console.log("system_1:", list[token].system)
   session.set("currentToken", list[token]);
   var current = list[token];
   var links = new array();
