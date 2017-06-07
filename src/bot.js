@@ -49,7 +49,7 @@ function welcome(session) {
 
 
 function ico(session) {
-      showICO(session)
+  showICO(session)
 }
 
 
@@ -83,12 +83,51 @@ function ico(session) {
 // }
 
 function sendFirstMessage(session, message) {
-  let controls = [
+  let controls = [{
+      type: 'button',
+      label: 'Token#1',
+      value: 'ico'
+    },
     {
       type: 'button',
-      label: 'ICO',
+      label: 'Token#2',
       value: 'ico'
-    }
+    },
+    {
+      type: 'button',
+      label: 'Token#3',
+      value: 'ico'
+    },
+    {
+      type: 'button',
+      label: 'Token#4',
+      value: 'ico'
+    },
+    {
+      type: 'button',
+      label: 'Token#5',
+      value: 'ico'
+    },
+    {
+      type: 'button',
+      label: 'Token#6',
+      value: 'ico'
+    },
+    {
+      type: 'button',
+      label: 'Token#7',
+      value: 'ico'
+    },
+    {
+      type: 'button',
+      label: 'Token#8',
+      value: 'ico'
+    },
+    {
+      type: 'button',
+      label: 'Token#9',
+      value: 'ico'
+    },
   ]
   session.reply(SOFA.Message({
     body: message,
@@ -97,29 +136,49 @@ function sendFirstMessage(session, message) {
   }))
 }
 
-function showICO(session){
+function showICO(session) {
   session.reply(SOFA.Message({
-  body: "What would you like to do next?",
-  controls: [
-    {
-      type: "group",
-      label: "Trip",
-      controls: [
-        {type: "button", label: "Directions", value: "directions"},
-        {type: "button", label: "Timetable", value: "timetable"},
-        {type: "button", label: "Exit Info", value: "exit"},
-        {type: "button", label: "Service Conditions", value: "conditions"}
-      ]
-    },
-    {
-      type: "group",
-      label: "Services",
-      "controls": [
-        {type: "button", label: "Buy Ticket", value: "buy-ticket"},
-        {type: "button", label: "Support", value: "support"}
-      ]
-    }
-  ]
-}))
+    body: "More about ICO .....",
+    controls = [{
+        type: 'button',
+        label: 'back',
+        value: 'welcome'
+      },
+      {
+        type: 'button',
+        label: 'invest',
+        value: 'welcome'
+      },
+      {
+        type: 'button',
+        label: 'contact',
+        value: 'welcome'
+      },
+      {
+        type: "group",
+        label: "contact",
+        controls: [{
+            type: "button",
+            label: "site",
+            value: "directions"
+          },
+          {
+            type: "button",
+            label: "twitter",
+            value: "timetable"
+          },
+          {
+            type: "button",
+            label: "facebook",
+            value: "exit"
+          },
+          {
+            type: "button",
+            label: "github",
+            value: "conditions"
+          }
+        ]
+      }
+    ]
+  }))
 }
-
