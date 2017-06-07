@@ -25,9 +25,8 @@ bot.onEvent = function (session, message) {
 
 
 function request(session) {
-
+  console.log("REQUEST")
   var url = "http://chaingear.cyber.fund/chaingear.json";
-
   fetch(url).then(function (r) {
     console.log("R:",r)
     return r.json();
@@ -49,7 +48,7 @@ function onCommand(session, command) {
   if (command.content.value.match(/ico=/)) {
     var token = command.content.value.substr(4);
     showICO(session, token);
-  } else if (command.content.value == welcome) {
+  } else if (command.content.value == 'welcome') {
     icoList(session)
   }
 }
