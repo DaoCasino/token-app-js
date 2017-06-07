@@ -26,9 +26,12 @@ bot.onEvent = function (session, message) {
 
 function request(session) {
   console.log("REQUEST")
-  req('http://chaingear.cyber.fund/chaingear.json').then((body)=>{
-     let res = JSON.parse(body);
-    console.log("BODY:",res.length)
+  req('http://chaingear.cyber.fund/chaingear.json').then((body) => {
+    let res = JSON.parse(body);
+    var erc20 = res.filter(function (itme) {
+      return item.consensus.consensus_type == "ERC20 Token";
+    });
+    console.log(erc20.length)
   })
   session.reply(SOFA.Message({
     body: "result",
