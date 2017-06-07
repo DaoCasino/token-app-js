@@ -5,15 +5,13 @@ const Fiat = require('./lib/Fiat')
 var req = require('request-promise-native');
 let bot = new Bot()
 
-// ROUTING
-
 bot.onEvent = function (session, message) {
   switch (message.type) {
     case 'Init':
-      welcome(session)
+      icoList(session)
       break
     case 'Message':
-      welcome(session)
+      icoList(session)
       break
     case 'Command':
       onCommand(session, message)
@@ -21,68 +19,24 @@ bot.onEvent = function (session, message) {
     case 'Payment':
       welcome(session)
       break
-    case 'PaymentRequest':
-      welcome(session)
-      break
   }
 }
 
-function onMessage(session, message) {
-  welcome(session)
-}
 
 function onCommand(session, command) {
   switch (command.content.value) {
     case 'ico':
-      ico(session)
+      showICO(session,command.content.label)
       break
   }
 }
-
-
-
-// STATES
 
 function welcome(session) {
   sendFirstMessage(session, `Hello! I know about all ICO's!`)
 }
 
 
-function ico(session) {
-  showICO(session)
-}
-
-
-
-
-
-// HELPERS
-
-// function sendMessage(session, message) {
-//   let controls = [{
-//       type: 'button',
-//       label: 'ico',
-//       value: 'ico'
-//     },
-//     {
-//       type: 'button',
-//       label: 'Count',
-//       value: 'count'
-//     },
-//     {
-//       type: 'button',
-//       label: 'Donate',
-//       value: 'donate'
-//     }
-//   ]
-//   session.reply(SOFA.Message({
-//     body: message,
-//     controls: controls,
-//     showKeyboard: false,
-//   }))
-// }
-
-function sendFirstMessage(session, message) {
+function icoList(session) {
   let controls = [{
       type: 'button',
       label: 'Token#1',
@@ -97,18 +51,38 @@ function sendFirstMessage(session, message) {
       type: 'button',
       label: 'Token#3',
       value: 'ico'
+    },
+    {
+      type: 'button',
+      label: 'Token#4',
+      value: 'ico'
+    },
+    {
+      type: 'button',
+      label: 'Token#5',
+      value: 'ico'
+    },
+    {
+      type: 'button',
+      label: 'Token#6',
+      value: 'ico'
+    },
+    {
+      type: 'button',
+      label: 'more',
+      value: 'more'
     }
   ]
   session.reply(SOFA.Message({
-    body: message,
+    body: "Hello! Select ICO:",
     controls: controls,
     showKeyboard: false,
   }))
 }
 
-function showICO(session) {
+function showICO(session,label) {
   session.reply(SOFA.Message({
-    body: "More about ICO .....",
+    body: "information about" + label,
     controls : [{
         type: 'button',
         label: 'back',
@@ -117,11 +91,6 @@ function showICO(session) {
       {
         type: 'button',
         label: 'invest',
-        value: 'welcome'
-      },
-      {
-        type: 'button',
-        label: 'contact',
         value: 'welcome'
       },
       {
