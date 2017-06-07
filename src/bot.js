@@ -97,37 +97,7 @@ function sendFirstMessage(session, message) {
       type: 'button',
       label: 'Token#3',
       value: 'ico'
-    },
-    {
-      type: 'button',
-      label: 'Token#4',
-      value: 'ico'
-    },
-    {
-      type: 'button',
-      label: 'Token#5',
-      value: 'ico'
-    },
-    {
-      type: 'button',
-      label: 'Token#6',
-      value: 'ico'
-    },
-    {
-      type: 'button',
-      label: 'Token#7',
-      value: 'ico'
-    },
-    {
-      type: 'button',
-      label: 'Token#8',
-      value: 'ico'
-    },
-    {
-      type: 'button',
-      label: 'Token#9',
-      value: 'ico'
-    },
+    }
   ]
   session.reply(SOFA.Message({
     body: message,
