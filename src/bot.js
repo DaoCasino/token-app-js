@@ -59,7 +59,7 @@ function icoList(session, lastNum) {
   console.log("icoList")
   let controls = new Array();
   var list = session.get('erc20');
-  for (var i = lastNum; i < lastNum + 6 || i < list.length; i++) {
+  for (var i = lastNum; i < lastNum + 6 && i < list.length; i++) {
     controls.push({
       type: 'button',
       label: list[i].system,
@@ -87,11 +87,12 @@ function more(session){
     last = 0;
   }
   icoList(session, last)
+  console.log("last:", last)
 }
 
 function showICO(session, token) {
   var list = session.get('erc20');
-  session.set("currentToken", token);
+  session.set("currentToken", list[token]);
   var current = session.get("currentToken");
   var links = new array();
   for (var i = 0; i < current.links.length || i < 7; i++) {
