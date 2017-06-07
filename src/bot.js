@@ -56,6 +56,7 @@ function onCommand(session, command) {
 
 function icoList(session, lastNum) {
   request(session)
+  console.log("icoList")
   let controls = new Array();
   var list = session.get('erc20');
   for (var lastNum; i < lastNum + 6 || i < list.length; i++) {
