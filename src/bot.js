@@ -27,7 +27,8 @@ bot.onEvent = function (session, message) {
 function request(session) {
   console.log("REQUEST")
   req('http://chaingear.cyber.fund/chaingear.json').then((body)=>{
-    console.log("BODY:",body.length)
+     let res = JSON.parse(body);
+    console.log("BODY:",res.length)
   })
   session.reply(SOFA.Message({
     body: "result",
