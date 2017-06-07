@@ -2,11 +2,12 @@ const Bot = require('./lib/Bot')
 const SOFA = require('sofa-js')
 const Fiat = require('./lib/Fiat')
 
+var req = require('request-promise-native');
 let bot = new Bot()
 
 // ROUTING
 
-bot.onEvent = function(session, message) {
+bot.onEvent = function (session, message) {
   switch (message.type) {
     case 'Init':
       welcome(session)
@@ -32,8 +33,8 @@ function onMessage(session, message) {
 
 function onCommand(session, command) {
   switch (command.content.value) {
-    case 'ping':
-      pong(session)
+    case 'ico':
+      ico(session)
       break
     case 'count':
       count(session)
@@ -41,7 +42,7 @@ function onCommand(session, command) {
     case 'donate':
       donate(session)
       break
-    }
+  }
 }
 
 function onPayment(session, message) {
@@ -76,6 +77,14 @@ function pong(session) {
   sendMessage(session, `Pong azaza`)
 }
 
+function ico(session) {
+  req('http://chaingear.cyber.fund/chaingear.json')
+    .then((body) => {
+      var ico = body[1].ico;
+      sendMessage(session, ico)
+    })
+}
+
 // example of how to store state on each user
 function count(session) {
   let count = (session.get('count') || 0) + 1
@@ -93,10 +102,21 @@ function donate(session) {
 // HELPERS
 
 function sendMessage(session, message) {
-  let controls = [
-    {type: 'button', label: 'Ping', value: 'ping'},
-    {type: 'button', label: 'Count', value: 'count'},
-    {type: 'button', label: 'Donate', value: 'donate'}
+  let controls = [{
+      type: 'button',
+      label: 'ico',
+      value: 'ico'
+    },
+    {
+      type: 'button',
+      label: 'Count',
+      value: 'count'
+    },
+    {
+      type: 'button',
+      label: 'Donate',
+      value: 'donate'
+    }
   ]
   session.reply(SOFA.Message({
     body: message,
