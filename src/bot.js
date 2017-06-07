@@ -59,7 +59,7 @@ function icoList(session, lastNum) {
   console.log("icoList")
   let controls = new Array();
   var list = session.get('erc20');
-  for (var lastNum; i < lastNum + 6 || i < list.length; i++) {
+  for (var i = lastNum; i < lastNum + 6 || i < list.length; i++) {
     controls.push({
       type: 'button',
       label: list[i].system,
