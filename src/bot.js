@@ -92,12 +92,15 @@ function more(session){
 
 function showICO(session, token) {
   console.log("TOKEN:", token)
+  console.log("system_1:", list[token].system)
   var list = session.get('erc20');
   session.set("currentToken", list[token]);
   var current = list[token];
   var links = new array();
   let button = new array();
+  console.log("_______1_______")
   for (var i = 0; i < current.links.length || i < 7; i++) {
+    console.log("num i: " + i)
     links.push({
       type: 'button',
       label: current.links[i].type,
@@ -114,7 +117,7 @@ button.push({
     label: "back",
     value: "welcome"
   })
-  console.log("system:", list[token].system)
+  console.log("system_2:", list[token].system)
   session.reply(SOFA.Message({
     body: "information about " + list[token].system + ": " + list[token].descriptions.headline,
     controls: controls,
