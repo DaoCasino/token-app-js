@@ -96,6 +96,7 @@ function showICO(session, token) {
   session.set("currentToken", list[token]);
   var current = list[token];
   var links = new array();
+  let button = new array();
   for (var i = 0; i < current.links.length || i < 7; i++) {
     links.push({
       type: 'button',
@@ -103,13 +104,17 @@ function showICO(session, token) {
       value: 'link=' + i
     })
   }
-  links.push({
+button.push({
+      type: "group",
+      label: "links",
+      controls: links
+    },
+    {
     type: 'button',
     label: "back",
     value: "welcome"
   })
-
-
+  console.log("system:", list[token].system)
   session.reply(SOFA.Message({
     body: "information about " + list[token].system + ": " + list[token].descriptions.headline,
     controls: controls,
