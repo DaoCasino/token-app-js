@@ -28,19 +28,14 @@ function request(session) {
   console.log("REQUEST")
   req('http://chaingear.cyber.fund/chaingear.json').then((body) => {
     let res = JSON.parse(body);
-    var erc20 = res.filter(function (itme) {
+    var erc20 = res.filter(function (item) {
       return item.consensus.consensus_type == "ERC20 Token";
+      
     });
     console.log(erc20.length)
+    session.set('erc20', erc20)
   })
-  session.reply(SOFA.Message({
-    body: "result",
-    controls: [{
-      type: 'button',
-      label: 'back',
-      value: 'welcome'
-    }]
-  }))
+  icoList(session)
 }
 
 function onCommand(session, command) {
@@ -55,42 +50,12 @@ function onCommand(session, command) {
 
 
 function icoList(session) {
-  let controls = [{
-      type: 'button',
-      label: 'Token#1',
-      value: 'ico=Token#1'
-    },
-    {
-      type: 'button',
-      label: 'Token#2',
-      value: 'ico=Token#2'
-    },
-    {
-      type: 'button',
-      label: 'Token#3',
-      value: 'ico=Token#3'
-    },
-    {
-      type: 'button',
-      label: 'Token#4',
-      value: 'ico=Token#4'
-    },
-    {
-      type: 'button',
-      label: 'Token#5',
-      value: 'ico=Token#5'
-    },
-    {
-      type: 'button',
-      label: 'Token#6',
-      value: 'ico=Token#6'
-    },
-    {
-      type: 'button',
-      label: 'more',
-      value: 'more'
-    }
-  ]
+  let controls = new Array();
+  var list = session.get('erc20');
+  for(var i = 0; i < 6; i++){
+    controls.push({type: 'button', label: list[i].system, value: 'ico='+i})
+  }
+
   session.reply(SOFA.Message({
     body: "Hello! Select ICO:",
     controls: controls,
@@ -99,8 +64,10 @@ function icoList(session) {
 }
 
 function showICO(session, token) {
+  var list = session.get('erc20');
+
   session.reply(SOFA.Message({
-    body: "information about " + token,
+    body: "information about " + list[token].system,
     controls: [{
         type: 'button',
         label: 'back',
