@@ -13,13 +13,13 @@ bot.onEvent = function (session, message) {
       welcome(session)
       break
     case 'Message':
-      onMessage(session, message)
+      welcome(session)
       break
     case 'Command':
       onCommand(session, message)
       break
     case 'Payment':
-      onPayment(session, message)
+      welcome(session)
       break
     case 'PaymentRequest':
       welcome(session)
@@ -109,7 +109,7 @@ function sendFirstMessage(session, message) {
 function showICO(session) {
   session.reply(SOFA.Message({
     body: "More about ICO .....",
-    controls = [{
+    controls : [{
         type: 'button',
         label: 'back',
         value: 'welcome'
