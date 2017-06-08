@@ -58,6 +58,15 @@ function onCommand(session, command) {
 
 function invest(session){
   session.requestEth(3, "invest now!");
+    session.reply(SOFA.Message({
+    body: "invest now!",
+    controls: [{
+    type: 'button',
+    label: "back",
+    value: "welcome"
+  }]
+  }))
+
 }
 
 function withdraw(session) {
