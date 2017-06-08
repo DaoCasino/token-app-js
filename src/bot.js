@@ -106,7 +106,7 @@ function showICO(session, token) {
     links.push({
       type: 'button',
       label: current.links[i].type,
-      value: 'link=' + i
+      action: "Webview::" + current.links[i].url
     })
   }
   button.push({
