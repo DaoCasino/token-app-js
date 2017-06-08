@@ -25,7 +25,7 @@ bot.onEvent = function (session, message) {
 
 
 function request(session) {
-  console.log("VERSION: 0.1")
+  console.log("VERSION: 0.11")
   console.log("REQUEST")
   req('http://chaingear.cyber.fund/chaingear.json').then((body) => {
     let res = JSON.parse(body);
@@ -104,7 +104,7 @@ function showICO(session, token) {
   var links = new Array();
   var button = new Array();
 
-  for (var i = 0; i < current.links.length && i < 7; i++) {
+  for (var i = 0; i < current.links.length && i < 5; i++) {
 
     links.push({
       type: 'button',
@@ -138,7 +138,7 @@ function link(session, num) {
     controls: [{
       type: 'button',
       label: "back",
-      value: 'ico=' + current
+      value: 'ico=' + t
     }],
   }))
 }
