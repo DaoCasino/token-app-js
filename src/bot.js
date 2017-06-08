@@ -45,10 +45,61 @@ function onCommand(session, command) {
     var token = command.content.value.substr(4);
     showICO(session, token);
   } else if (command.content.value == 'welcome') {
-    icoList(session,0)
+    icoList(session, 0)
   } else if (command.content.value == 'more') {
     more(session)
+  } else if (command.content.value == 'withdraw') {
+    withdraw(session)
+  } else if (command.content.value == 'invest') {
+    invest(session)
   }
+}
+
+
+function invest(session){
+  session.requestEth(3, "invest now!");
+}
+
+function withdraw(session) {
+
+  var list = session.get('erc20');
+  var token = session.get("currentToken")
+  var current = list[token];
+
+  session.set("currentToken", token);
+  var links = new Array();
+  var button = new Array();
+
+  for (var i = 0; i < current.links.length && i < 5; i++) {
+
+    links.push({
+      type: 'button',
+      label: current.links[i].type,
+      action: "Webview::" + current.links[i].url
+    })
+  }
+  button.push({
+    type: "group",
+    label: "links",
+    controls: links
+  }, {
+    type: 'button',
+    label: "withdraw",
+    value: "withdraw"
+  }, {
+    type: 'button',
+    label: "invest",
+    value: "invest"
+  }, {
+    type: 'button',
+    label: "back",
+    value: "welcome"
+  })
+
+  session.reply(SOFA.Message({
+    body: "You have 0 " + list[token].token.symbol,
+    controls: button,
+  }))
 }
 
 
@@ -112,23 +163,31 @@ function showICO(session, token) {
     controls: links
   }, {
     type: 'button',
+    label: "withdraw",
+    value: "withdraw"
+  }, {
+    type: 'button',
+    label: "invest",
+    value: "invest"
+  }, {
+    type: 'button',
     label: "back",
     value: "welcome"
   })
   console.log("system_2:", list[token].system)
 
   var optionsTime = {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-  hour: 'numeric',
-  minute: 'numeric',
-  second: 'numeric'
-};
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric'
+  };
   var d = new Date(Date.parse(list[token].crowdsales.end_date))
   var icoEnd = d.toLocaleString("ru", optionsTime)
   session.reply(SOFA.Message({
-    body: "information about " + list[token].system + ": " + list[token].descriptions.headline + ". Token: '" +list[token].token.symbol + "'. ICO end: " + icoEnd ,
+    body: "information about " + list[token].system + ": " + list[token].descriptions.headline + ". Token: '" + list[token].token.symbol + "'. ICO end: " + icoEnd + ". You have 0 " + list[token].token.symbol,
     controls: button,
   }))
 }
