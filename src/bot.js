@@ -51,9 +51,6 @@ function onCommand(session, command) {
     link(session, linkNum)
   } else if (command.content.value == 'more') {
     more(session)
-  }else if (command.content.value == 'back'){
-    var t = session.get("currentToken")
-    showICO(session, t);
   }
 }
 
@@ -119,11 +116,22 @@ function showICO(session, token) {
   }, {
     type: 'button',
     label: "back",
-    value: "back"
+    value: "welcome"
   })
   console.log("system_2:", list[token].system)
+
+  var optionsTime = {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  hour: 'numeric',
+  minute: 'numeric',
+  second: 'numeric'
+};
+  var d = new Date(Date.parse(list[token].crowdsales.end_date))
+  var icoEnd = d.toLocaleString("ru", optionsTime)
   session.reply(SOFA.Message({
-    body: "information about " + list[token].system + ": " + list[token].descriptions.headline,
+    body: "information about " + list[token].system + ": " + list[token].descriptions.headline + "Token: " +list[token].token.symbol + "ICO end: " + icoEnd ,
     controls: button,
   }))
 }
