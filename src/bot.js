@@ -25,7 +25,7 @@ bot.onEvent = function (session, message) {
 
 
 function request(session) {
-  console.log("VERSION: 0.11")
+  console.log("VERSION: 0.12")
   console.log("REQUEST")
   req('http://chaingear.cyber.fund/chaingear.json').then((body) => {
     let res = JSON.parse(body);
@@ -131,7 +131,7 @@ function showICO(session, token) {
   var d = new Date(Date.parse(list[token].crowdsales.end_date))
   var icoEnd = d.toLocaleString("ru", optionsTime)
   session.reply(SOFA.Message({
-    body: "information about " + list[token].system + ": " + list[token].descriptions.headline + "Token: " +list[token].token.symbol + "ICO end: " + icoEnd ,
+    body: "information about " + list[token].system + ": " + list[token].descriptions.headline + ". Token: '" +list[token].token.symbol + "'. ICO end: " + icoEnd ,
     controls: button,
   }))
 }
