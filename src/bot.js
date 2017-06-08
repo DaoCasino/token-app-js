@@ -46,9 +46,6 @@ function onCommand(session, command) {
     showICO(session, token);
   } else if (command.content.value == 'welcome') {
     icoList(session,0)
-  } else if (command.content.value.match(/link=/)) {
-    var linkNum = command.content.value.substr(5);
-    link(session, linkNum)
   } else if (command.content.value == 'more') {
     more(session)
   }
@@ -133,20 +130,5 @@ function showICO(session, token) {
   session.reply(SOFA.Message({
     body: "information about " + list[token].system + ": " + list[token].descriptions.headline + ". Token: '" +list[token].token.symbol + "'. ICO end: " + icoEnd ,
     controls: button,
-  }))
-}
-
-function link(session, num) {
-  var list = session.get('erc20');
-  var t = session.get("currentToken");
-  var current = list[t]
-
-  session.reply(SOFA.Message({
-    body: current.links[num].type + ": " + current.links[num].url,
-    controls: [{
-      type: 'button',
-      label: "back",
-      value: 'ico=' + t
-    }],
   }))
 }
